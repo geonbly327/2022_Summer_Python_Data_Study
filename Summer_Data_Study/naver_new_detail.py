@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
+l = []
+
 #headers
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
 
@@ -35,15 +37,27 @@ text = res.text
 
 soup = BeautifulSoup(text, 'html.parser')
 
-l = []
-for li in soup.select('#main_content > div > ul > li'):
-    url = li.a['href']
+#탐색할 페이지 리스트
+page = ['https://news.naver.com/main/list.naver?mode=LS2D&mid=shm&sid2=229&sid1=105&date=20220701']
+for li in soup.select('#main_content > div.paging > a'):
+    page.append('https://news.naver.com/main/list.naver' + li['href'])
 
-    title, date, contents = detail_info(url)
-    print(f'Title : \n{title}')
-    print(f'Date : \n{date}')
-    print(f'Contents : \n{contents}')
-    l.append([title, date, contents])
+#페이지 탐색
+for li in page:
+    res = requests.get(li, headers=headers)
+    text = res.text
+
+    soup = BeautifulSoup(text, 'html.parser')
+
+    for li in soup.select('#main_content > div > ul > li'):
+        url = li.a['href']
+
+        title, date, contents = detail_info(url)
+        print(f'Title : \n{title}')
+        print(f'Date : \n{date}')
+        print(f'Contents : \n{contents}')
+        l.append([title, date, contents])
+
 
 df = pd.DataFrame(l, columns = ['title', 'url', 'contents'])
 df.to_excel('naver_news.xlsx', index = False)
