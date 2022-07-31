@@ -86,10 +86,10 @@
     #### 📌 MySQL에 데이터 정리 📌
     
     ![img1](./img/Screenshot1.png)
-    ###### _#MySQL에 data를 넣은 img_
+    ###### _#MySQL에 data를 넣은 img{: .text-right }_
 
     ![img2](./img/Screenshot2.png)
-    ###### _#MySQL Workbench로 스키마, 테이블을 생성한 img_
+    ###### _#MySQL Workbench로 스키마, 테이블을 생성한 img{: .text-right }_
 
     엑셀의 행의 한계는 1048576개이기 때문에 방대한 데이터를 저장하기에 무리가 있기에 데이터베이스 사용
     MySQL에 web 스키마를 생성, news 테이블 생성, publisher, title, date 필드 생성
