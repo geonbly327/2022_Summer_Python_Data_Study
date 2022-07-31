@@ -85,10 +85,10 @@
 - ### ___2022_07_31___
     #### 📌 MySQL에 데이터 정리 📌
     
-    ###### _<div style="text-align: right">#MySQL에 data를 넣은 img</div>_
+    ###### _#MySQL에 data를 넣은 img_
     ![img1](./img/Screenshot1.png)
 
-    ###### _<div style="text-align: right">#MySQL Workbench로 스키마, 테이블을 생성한 img</div>_
+    ###### _#MySQL Workbench로 스키마, 테이블을 생성한 img_
     ![img2](./img/Screenshot2.png)
 
     엑셀의 행의 한계는 1048576개이기 때문에 방대한 데이터를 저장하기에 무리가 있기에 데이터베이스 사용
