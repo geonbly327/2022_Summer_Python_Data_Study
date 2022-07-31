@@ -1,12 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-
-l = []
-
-# headers
-headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
-
+import pymysql
+import mysql_user_info # MySQL 정보
 
 def basic_info(li):
     url = li.a['href']
@@ -33,6 +29,16 @@ def detail_info(url):
             contents = soup.select_one('#content > div.end_ct > div > div.end_body_wrp').text.strip()
 
     return contents
+
+# MySQL 연결
+user = mysql_user_info.user_info
+db = pymysql.connect(db=user['db'], host=user['host'], user=user['user'], passwd=user['passwd'], port=user['port'], charset=user['charset'])
+cursor = db.cursor(pymysql.cursors.DictCursor)
+
+l = []
+
+# headers
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
 
 # 날짜 리스트 만들기
 day_url = []
