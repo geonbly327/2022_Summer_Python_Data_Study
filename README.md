@@ -86,6 +86,10 @@
     #### 📌 MySQL에 데이터 정리 📌
     
     ![img1](./img/Screenshot1.png)
+    #MySQL에 data를 넣은 img
+    
+    ![img2](./img/Screenshot2.png)
+    #MySQL Workbench로 스키마, 테이블을 생성한 img
 
     엑셀의 행의 한계는 1048576개이기 때문에 방대한 데이터를 저장하기에 무리가 있기에 데이터베이스 사용
     MySQL에 web 스키마를 생성, news 테이블 생성, publisher, title, date 필드 생성
@@ -99,7 +103,6 @@
         `title` VARCHAR(100) NOT NULL,
         `date` VARCHAR(30) NOT NULL);
     ```
-    ![img2](./img/Screenshot2.png)
 
     python으로 데이터베이스를 사용하기 위하여 pymysql 라이브러리를 사용
     ```
