@@ -33,6 +33,7 @@
     df = pd.DataFrame(l, columns = ['title', 'url', 'contents'])
     df.to_excel('naver_news.xlsx', index = False) 
     ```
+***
 - ### ___2022_07_23___
     #### 📌 6월 한 달치 뉴스 수집 📌
     
@@ -41,7 +42,7 @@
     for day in range(30):
     day_url.append('https://news.naver.com/main/list.naver?mode=LS2D&mid=shm&sid2=229&sid1=105&date='+ str(20220601 + day))
     ```
-
+***
 - ### ___2022_07_29___
     #### 📌 title과 date 수집 방식 변경 📌
     
@@ -76,7 +77,7 @@
 
         return title, date, url
     ```
-
+***
 - ### ___2022_07_31___
     #### 📌 MySQL에 데이터 정리 📌
     
