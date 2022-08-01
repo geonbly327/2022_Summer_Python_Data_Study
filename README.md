@@ -91,7 +91,7 @@
     ###### _# MySQL Workbench로 스키마, 테이블을 생성한 img_
     ![img2](./img/Screenshot2.png)
 
-    엑셀의 행의 한계는 1048576개이기 때문에 방대한 데이터를 저장하기에 무리가 있기에 데이터베이스 사용
+    엑셀의 행의 한계는 1048576개이기 때문에 방대한 데이터를 저장하기에 무리가 있어 데이터베이스를 사용
     MySQL에 web 스키마를 생성, news 테이블 생성, publisher, title, date 필드 생성
     ```sql
     CREATE DATABASE web
@@ -111,6 +111,7 @@
 
     MySQL에 연결할 때 필요한 db, host, user, password, port, charset 정보를 딕셔너리형으로 mysql_user_info.py로 미리 저장하였다가 naver_news_detail.py에서 import 하여 사용
     ```python
+    # mysql_user_info.py
     user_info = {'db' : 'web', 'host' : '127.0.0.1', 'user' : 'root', 'passwd' : 'DB_PASSWORD', 'port' : 3306, 'charset' : 'utf8'}
     ```
 
