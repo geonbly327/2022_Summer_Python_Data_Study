@@ -6,6 +6,7 @@ import time
 import mysql_user_info # MySQL 정보
 
 start_time = time.time()
+user = mysql_user_info.user_info
 
 # 뉴스의 기본 정보 수집
 def basic_info(li):
@@ -37,14 +38,9 @@ def detail_info(url):
 
 # MySQL db에 data 넣기
 def insert_data(publisher, title, date, contents):
-    user = mysql_user_info.user_info
-    db = pymysql.connect(db=user['db'], host=user['host'], user=user['user'], passwd=user['passwd'],
-                         port=user['port'], charset=user['charset'])
-
-    sql = 'INSERT INTO news (publisher, title, date, body) VALUES (%s, %s, %s, %s)'
-
-    with db:
+    with pymysql.connect(db=user['db'], host=user['host'], user=user['user'], passwd=user['passwd'], port=user['port'], charset=user['charset']) as db:
         with db.cursor() as cursor:
+            sql = 'INSERT INTO news (publisher, title, date, body) VALUES (%s, %s, %s, %s)'
             cursor.execute(sql, (publisher, title, date, contents))
             db.commit()
 
