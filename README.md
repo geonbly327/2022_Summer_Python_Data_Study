@@ -4,7 +4,8 @@
 >\# [2022_07_23](#2022_07_23)  
 >\# [2022_07_29](#2022_07_29)  
 >\# [2022_07_31](#2022_07_31)  
->\# [2022_08_05](#2022_08_05)
+>\# [2022_08_05](#2022_08_05)  
+>\# [2022_08_20](#2022_08_20)
 ***
 - ### ___2022_07_22___
     #### 📌 BeautifulSoup 라이브러리를 이용하여 7월 1일자의 모든 뉴스 수집 📌
@@ -194,3 +195,54 @@
     except:
         continue
   ```
+***
+- ### ___2022_08_20___
+    #### 📌 KoNLPy 이용한 형태소 분석 📌
+
+    우선 naver_news_detail.py로 db에 저장했었던 데이터를 받아옴
+    ```python
+    def fetch():
+        with pymysql.connect(db=user['db'], host=user['host'], user=user['user'], passwd=user['passwd'], port=user['port'], charset=user['charset']) as db:
+            with db.cursor(pymysql.cursors.DictCursor) as cur:
+                sql = 'SELECT * FROM news'
+                cur.execute(sql)
+                db.commit()
+
+                data = cur.fetchall()
+
+        return data
+  ```
+
+    분석한 형태소 데이터를 넣을 db 설계를 고민하다가 | id | type | word | 구조로 설계  
+    id는 'publisher-date'로 설정
+    ```python
+    # id 생성
+    id = i['publisher'] + '-' + i['date']
+  ```
+  
+    제목에서는 명사만, 본문에서는 명사, 형용사만 추출하고자 함  
+    명사는 어절을 추출하여 넣음
+    ```python
+    # 형태소 분석
+    title_pos = okt.pos(i['title'])
+    title_noun = okt.phrases((i['title']))
+    body_pos = okt.pos(i['body'])
+    body_noun = okt.phrases((i['body']))
+  ```
+  
+    데이터를 두 개의 테이블에 넣지만 하나의 함수로 처리
+  ```python
+  # morpheme 테이블에 data 넣기
+  def insert_data(id, type, word, sort):
+      try:
+          with pymysql.connect(db=user['db'], host=user['host'], user=user['user'], passwd=user['passwd'], port=user['port'], charset=user['charset']) as db:
+              with db.cursor() as cursor:
+                  sql = 'INSERT INTO ' + sort + '_morpheme (id, type, word) VALUES (%s, %s, %s)'
+                  cursor.execute(sql, (id, type, word))
+                  db.commit()
+      except:
+          pass
+  ```
+  
+    ###### _# 러닝시간을 계산한 결과_
+    ![img1](./img/time.png)
